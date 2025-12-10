@@ -1,66 +1,251 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📚 Sistem Informasi Perpustakaan - UAS PBO
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi manajemen perpustakaan berbasis web yang dibangun menggunakan Laravel. Sistem ini dirancang untuk mengelola peminjaman dan pengembalian buku di perpustakaan kampus dengan fitur role-based access control (Admin & Mahasiswa).
 
-## About Laravel
+## 🎯 Fitur Utama
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 👨‍💼 Fitur Admin
+- **Manajemen Mahasiswa**: CRUD data mahasiswa (Tambah, Lihat, Edit, Hapus)
+- **Manajemen Buku**: CRUD data buku dengan pencatatan stok
+- **Manajemen Program Studi**: CRUD data program studi
+- **Peminjaman Buku**: 
+  - Input peminjaman dengan autocomplete mahasiswa & buku
+  - Validasi stok buku otomatis
+  - Pencatatan tanggal pinjam dan tenggat kembali
+- **Pengembalian Buku**: 
+  - Pencarian peminjaman berdasarkan NIM
+  - Proses pengembalian dengan update stok otomatis
+  - Deteksi keterlambatan pengembalian
+- **Laporan Pengembalian**: Statistik dan riwayat pengembalian lengkap
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 👨‍🎓 Fitur Mahasiswa
+- **Lihat Katalog Buku**: Melihat daftar buku yang tersedia
+- **Riwayat Peminjaman**: Melihat riwayat peminjaman pribadi
+- **Status Keterlambatan**: Notifikasi buku yang terlambat dikembalikan
+- **Validasi Tanggungan**: Sistem mencegah peminjaman jika masih ada buku telat
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🛠️ Teknologi yang Digunakan
 
-## Learning Laravel
+- **Framework**: Laravel 10.x
+- **Database**: MySQL
+- **Frontend**: Bootstrap 5, jQuery, jQuery UI (Autocomplete)
+- **Backend**: PHP 8.x
+- **Authentication**: Custom Guard untuk mahasiswa
+- **Date Management**: Carbon
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 📋 Persyaratan Sistem
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- PHP >= 8.1
+- Composer
+- MySQL/MariaDB
+- Node.js & NPM (untuk asset compilation)
+- Web Server (Apache/Nginx)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🚀 Instalasi
 
-## Laravel Sponsors
+### 1. Clone Repository
+```bash
+git clone https://github.com/sabita-yahya/UAS-PBO-Perpustakaan.git
+cd UAS-PBO-Perpustakaan
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 2. Install Dependencies
+```bash
+composer install
+npm install
+```
 
-### Premium Partners
+### 3. Konfigurasi Environment
+```bash
+# Copy file .env.example menjadi .env
+copy .env.example .env
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+# Generate application key
+php artisan key:generate
+```
 
-## Contributing
+### 4. Konfigurasi Database
+Edit file `.env` dan sesuaikan dengan konfigurasi database Anda:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=perpustakaan
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 5. Migrasi Database
+```bash
+# Jalankan migrasi
+php artisan migrate
 
-## Code of Conduct
+# (Optional) Jalankan seeder jika ada
+php artisan db:seed
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 6. Compile Assets
+```bash
+npm run dev
+# Atau untuk production
+npm run build
+```
 
-## Security Vulnerabilities
+### 7. Jalankan Aplikasi
+```bash
+php artisan serve
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Akses aplikasi di: `http://localhost:8000`
 
-## License
+## 📊 Struktur Database
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Tabel Utama
+- **mahasiswas**: Data mahasiswa (NIM, nama, prodi, role)
+- **bukus**: Data buku (judul, pengarang, penerbit, tahun, stok)
+- **prodis**: Data program studi
+- **pinjams_tabel**: Data peminjaman (NIM, tanggal pinjam/kembali)
+- **detail_pinjams_tabel**: Detail buku yang dipinjam (kode buku, jumlah, status)
+
+## 🔐 Autentikasi & Role
+
+### Role yang Tersedia:
+1. **Admin** (`role = 'admin'`)
+   - Akses penuh ke semua fitur
+   - Mengelola data mahasiswa, buku, dan prodi
+   - Memproses peminjaman dan pengembalian
+
+2. **Mahasiswa** (`role = 'mhs'`)
+   - Melihat katalog buku
+   - Melihat riwayat peminjaman pribadi
+   - Terbatas dari fitur CRUD
+
+### Middleware
+- `AuthMhs:admin` - Hanya untuk admin
+- `AuthMhs:mhs,admin` - Untuk mahasiswa dan admin
+
+## 📁 Struktur Project
+
+```
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── BukuController.php        # CRUD Buku
+│   │   │   ├── CobaController.php        # Auth & CRUD Mahasiswa
+│   │   │   ├── PinjamController.php      # Peminjaman & Pengembalian
+│   │   │   ├── ProdiController.php       # CRUD Prodi
+│   │   └── Middleware/
+│   ├── Models/
+│   │   ├── Buku.php
+│   │   ├── mahasiswas.php
+│   │   ├── Pinjam.php
+│   │   ├── DetailPinjam.php
+│   │   └── Prodi.php
+├── database/
+│   └── migrations/
+│       ├── create_mahasiswas_table.php
+│       ├── create_prodis_table.php
+│       ├── create_bukus_table.php
+│       └── create_pinjams_table.php
+├── resources/
+│   └── views/
+│       ├── buku/          # Views CRUD Buku
+│       ├── mahasiswa/     # Views CRUD Mahasiswa
+│       ├── pinjam/        # Views Peminjaman & Riwayat
+│       ├── kembali/       # Views Pengembalian
+│       └── login/         # Views Login
+└── routes/
+    └── web.php            # Routing aplikasi
+```
+
+## 🎨 Fitur Khusus
+
+### 1. Autocomplete Search
+- Pencarian mahasiswa berdasarkan nama (AJAX)
+- Pencarian buku berdasarkan judul (AJAX)
+- Menampilkan stok buku real-time
+
+### 2. Validasi Peminjaman
+- Cek stok buku sebelum peminjaman
+- Validasi tanggungan keterlambatan
+- Mahasiswa dengan buku telat tidak bisa pinjam lagi
+- Admin tidak terkena validasi tanggungan
+
+### 3. Deteksi Keterlambatan
+- Otomatis mendeteksi buku yang lewat jatuh tempo
+- Menampilkan status "TELAT" dengan warna merah
+- Statistik buku telat per mahasiswa
+
+### 4. Transaction Management
+- Menggunakan database transaction untuk keamanan data
+- Rollback otomatis jika terjadi error
+- Update stok buku secara atomik
+
+## 📝 Cara Penggunaan
+
+### Login
+1. Akses halaman login
+2. Masukkan NIM dan password
+3. Sistem akan redirect sesuai role:
+   - Admin → Dashboard Admin
+   - Mahasiswa → Katalog Buku
+
+### Peminjaman Buku (Admin)
+1. Pilih menu "Peminjaman"
+2. Cari mahasiswa dengan autocomplete
+3. Tambah buku yang akan dipinjam
+4. Sistem akan validasi:
+   - Stok buku tersedia
+   - Mahasiswa tidak punya tanggungan telat
+5. Klik "Simpan"
+
+### Pengembalian Buku (Admin)
+1. Pilih menu "Pengembalian"
+2. Masukkan NIM mahasiswa
+3. Sistem akan menampilkan buku yang dipinjam
+4. Pilih buku yang dikembalikan
+5. Stok buku otomatis bertambah
+
+### Riwayat Peminjaman (Mahasiswa)
+1. Login sebagai mahasiswa
+2. Pilih menu "Riwayat Peminjaman"
+3. Lihat semua buku yang pernah dipinjam
+4. Status buku telat akan ditampilkan
+
+## 🐛 Troubleshooting
+
+### Error "Class not found"
+```bash
+composer dump-autoload
+```
+
+### Error Migrasi Database
+```bash
+php artisan migrate:fresh
+```
+
+### Cache Clear
+```bash
+php artisan config:clear
+php artisan cache:clear
+php artisan view:clear
+```
+
+## 👥 Kontributor
+
+- **Sabita Yahya** - Developer
+
+## 📄 License
+
+Project ini dibuat untuk keperluan UAS Pemrograman Berbasis Objek.
+
+## 🙏 Acknowledgments
+
+- Laravel Framework
+- Bootstrap Team
+- jQuery & jQuery UI
+- Carbon Date Library
+
+---
+
+**Dibuat dengan ❤️ untuk UAS Pemrograman Berbasis Objek - Semester 3 AKN**
